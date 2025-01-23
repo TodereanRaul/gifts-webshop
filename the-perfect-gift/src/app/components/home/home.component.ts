@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FooterComponent } from '../footer/footer.component';
+import { ProductsComponent } from '../products/products.component';
 
 @Component({
   selector: 'home',
   standalone: true,
-  imports: [FooterComponent],
+  imports: [ProductsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

@@ -1,13 +1,37 @@
-<div *ngIf="products.length > 0; else loading">
-  <h2>Products</h2>
-  <ul>
-    <li *ngFor="let product of products">
-      <h3>{{ product.nom }}</h3>
-      <p>{{ product.description }}</p>
-      <strong>Price: ${{ product.prix }}</strong>
-      <p>{{ product.personnalisations }}</p>
-    </li>
-  </ul>
+<div class="container mx-auto">
+  <div
+    *ngIf="products.length > 0; else loading"
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+  >
+    <div
+      *ngFor="let product of products"
+      class="overflow-hidden transform transition-transform hover:-translate-y-1"
+    >
+      <div class="block pb-4">
+        <div class="">
+          <div class="card-body">
+            <div class="flex justify-between">
+              <h5 class="text-base font-medium mb-2">
+                {{ product.nom }}
+              </h5>
+              <p class="text-xs text-btn">{{ product.prix }}</p>
+            </div>
+            <p class="text-sm">
+              {{ product.description }}
+            </p>
+            <p>{{ product.personnalisations }}</p>
+            <!-- Add to Cart Button -->
+            <button
+              class="mt-4 px-4 py-2 bg-btn rounded hover:bg-btn-dark transition"
+              (click)="addToCart(product)"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #loading>
   <p>Loading products...</p>
