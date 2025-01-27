@@ -1,0 +1,112 @@
+<section class="py-8 px-4 mx-auto max-w-screen-xl lg:py-10" *ngIf="product">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Product Slideshow Gallery -->
+      <div class="flex-1 max-w-lg mx-auto lg:mx-0">
+        <!-- Main Product Image -->
+        <div
+          class="relative bg-itemsBg rounded-md overflow-hidden"
+          style="width: 100%; max-width: 500px; height: 500px; margin: 0 auto"
+        >
+          <img
+            class="object-contain w-full h-full"
+            [src]="product.imageUrls[currentImageIndex]"
+            [alt]="'Image of ' + (product.name || 'Unknown Product')"
+          />
+        </div>
+  
+        <!-- Thumbnail Navigation -->
+        <div class="flex justify-start gap-2 mt-4 overflow-x-auto">
+          <button
+            *ngFor="let image of product?.imageUrls; let i = index"
+            (click)="currentImageIndex = i"
+            class="flex-shrink-0 border rounded-md p-1 transition duration-200"
+            [class.border-blue-500]="i === currentImageIndex"
+            [class.bg-blue-100]="i === currentImageIndex"
+          >
+            <img
+              class="object-cover w-16 h-16 rounded-md"
+              [src]="image"
+              [alt]="'Thumbnail ' + (i + 1) + ' of ' + (product.name || 'Unknown Product')"
+            />
+          </button>
+        </div>
+      </div>
+  
+      <!-- Product Details -->
+      <div class="flex-1 lg:pl-6">
+        <h2 class="text-primary text-4xl font-semibold mb-2">
+          {{ product.name }}
+        </h2>
+  
+        <!-- Availability -->
+        <div class="mb-4">
+          <p
+            class="text-secondary text-sm"
+            [ngClass]="product.available ? 'text-green-600' : 'text-red-600'"
+          >
+            {{ product.available ? 'In Stock' : 'Out of Stock' }}
+          </p>
+        </div>
+  
+        <!-- Description -->
+        <p class="text-xl font-normal text-secondary mb-4">
+          {{ product.description }}
+        </p>
+  
+        <!-- Price -->
+        <p class="text-base text-primary mb-2">
+          Prix: <span>{{ product.price }}€</span>
+        </p>
+  
+        <!-- Variants -->
+        <div *ngIf="product && product.variantIds && product.variantIds.length > 0" class="mb-4">
+            <h3 class="text-lg font-semibold text-primary">Variants:</h3>
+                <ul class="list-disc pl-5">
+                    <li *ngFor="let variant of product.variantIds">
+                    Variant ID: {{ variant }}
+                    </li>
+                </ul>
+        </div>
+  
+        <!-- Customizations -->
+        <div *ngIf="product?.exteriorText || product?.interiorText" class="mb-4">
+            <h3 class="text-lg font-semibold text-primary">Customization Options:</h3>
+          
+            <!-- Exterior Customization -->
+            <div *ngIf="product?.exteriorText" class="mb-2">
+              <p class="text-sm">
+                <strong>Exterior Customization:</strong>
+                <span>{{ product.exteriorText }}</span>
+              </p>
+            </div>
+          
+            <!-- Interior Customization -->
+            <div *ngIf="product?.interiorText">
+              <p class="text-sm">
+                <strong>Interior Customization:</strong>
+                <span>{{ product.interiorText }}</span>
+              </p>
+            </div>
+          </div>
+          
+  
+        <!-- Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-4">
+          <button
+            type="button"
+            class="focus:outline-none text-white font-bold bg-red-600 hover:bg-red-700 rounded-lg px-5 py-2.5"
+          >
+            AJOUTER AU PANIER
+          </button>
+          <button
+            type="button"
+            class="cursor-not-allowed text-secondary bg-white border border-gray-300 hover:bg-gray-100 font-bold rounded-lg px-5 py-2.5"
+            disabled
+          >
+            RESERVE & GO
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
